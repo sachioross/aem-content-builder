@@ -44,6 +44,14 @@ describe('A page component', function() {
       assert.equal("Test Page", new Page("/", "Test Page").content["jcr:content/jcr:title"]);
     });
 
+    it('should have a component at "jcr:content/component-a" when adding a new component with path "component-a"', function() {
+      var c = new Component();
+      var p = new Page("/", "Test");
+      p.addComponent("component-a", c);
+
+      assert.equal("nt:unstructured", p.content["jcr:content/component-a/jcr:primaryType"]);
+    });
+
   });
 
 });
