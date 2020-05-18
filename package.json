@@ -3,18 +3,19 @@
   "version": "1.0.1",
   "description": "NodeJS utility to rapidly define AEM components, structures, set associated content and issue Sling POST requests to a target AEM instance. Can be used as a stand-alone content creation library or as part of a migration tool for AEM. ",
   "main": "index.js",
-  "repository" : {
-      "type" : "git",
-      "url" : "https://github.com/sachioross/aem-content-builder"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sachioross/aem-content-builder"
   },
   "dependencies": {
     "request": "^2.75.0"
   },
   "devDependencies": {
+    "jest": "^26.0.1",
     "mocha": "^3.1.2"
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "jest test"
   },
   "keywords": [
     "AEM",
