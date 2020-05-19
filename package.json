@@ -8,6 +8,8 @@
     "url": "https://github.com/sachioross/aem-content-builder"
   },
   "dependencies": {
+    "cross-fetch": "^3.0.4",
+    "form-data": "^3.0.0",
     "request": "^2.75.0"
   },
   "devDependencies": {
