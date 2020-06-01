@@ -95,7 +95,7 @@ class Component {
     Will iterate through all items in the content node and add
     them to this component
   */
-  addComponent(cmpName, cmpt) {
+  addChild(cmpName, cmpt) {
 
     let cmptData = cmpt.getData();
     for (let i in cmptData) {
@@ -136,7 +136,7 @@ class Component {
           console.log(`Posted to ${req.url} with a status of ${res.statusCode}`);
         }
         res.text();
-        // TODO: res.text()? OR just check that response is valid? 
+
       })
       .then(html => {
         console.log(html)

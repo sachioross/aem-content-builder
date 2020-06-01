@@ -1,23 +1,16 @@
-var ComponentFactory = require("./content");
-var PageFactory = require("./structure");
-var Component = require("./Component.js");
-var Page = require("./PageComponent.js");
+const RequestBuilder = require('./core/RequestBuilder');
+const Component = require('./core/Component');
 
-function define(cmp, cmpDef) {
-  cmp.prototype = Object.create(Component.prototype, cmpDef);
-  return cmp;
-}
+let c = new Component();
+c.setProperty("jcr:title", `Title ${new Date().getTime()}`);
+c.setResourceType("wknd/components/content/title")
 
-function definePage(cmp, cmpDef) {
-  cmp.prototype = Object.create(Page.prototype, cmpDef);
-  return cmp;
-}
+const testURL = `http://localhost:4502/content/wknd/language-masters/en/magazine/_jcr_content/root/responsivegrid/title-${new Date().getTime()}`;
 
-module.exports = {
-  componentFactory : ComponentFactory,
-  pageFactory : PageFactory,
-  Component : Component,
-  Page : Page,
-  Define : define,
-  DefinePage : definePage
-}
+let builder = new RequestBuilder(testURL); 
+builder.credentials("admin","admin").payload(c.getFormData());
+
+c.parse()
+
+
+c.post(builder.build());

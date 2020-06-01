@@ -1,16 +1,16 @@
-const Component = require('../Component');
+const Component = require('../core/Component');
 
 test('Instantiate new component', () => {
     let initialProps = {
-        "jcr:primaryType": "cq:Component"
+        "jcr:primaryType": "nt:unstructured"
     }
     
     let c1 = new Component();
-    expect(c1.getPrimaryType()).toBe("cq:Component");
+    expect(c1.getPrimaryType()).toBe("nt:unstructured");
     expect(c1.getProperties()).toStrictEqual(initialProps);
 
     let constructorProps = {
-        "jcr:primaryType": "cq:Component",
+        "jcr:primaryType": "nt:unstructured",
         "name":"component",
         "jcr:content/title": "My Title"
     }
@@ -20,7 +20,7 @@ test('Instantiate new component', () => {
 
 test('Ensure property setting', () => {
     let targetProps = {
-        "jcr:primaryType": "cq:Component",
+        "jcr:primaryType": "nt:unstructured",
         "testProp":"testVal",
         "chainedProp":"chainedVal"
     }
@@ -36,7 +36,7 @@ test('Ensure property setting', () => {
 
 test('Ensure multi-value property handling', () => {
     let targetProps = {
-        "jcr:primaryType": "cq:Component",
+        "jcr:primaryType": "nt:unstructured",
         multiOne: ["a","b","c"],
         multiTwo: ["1","2","3"],
         multiThree: ["{\"a\":1,\"b\":2}"]
@@ -72,7 +72,7 @@ test('Ensure content setting', () => {
 
 test('Verify getData returns all data', () => {
     let targetResult = {
-        "jcr:primaryType":"cq:Component",
+        "jcr:primaryType":"nt:unstructured",
         "testProp":"testVal", 
         "jcr:content/title": "My Title"
     }
@@ -85,14 +85,18 @@ test('Verify getData returns all data', () => {
 
 test('Add component', () => {
     let targetResult = {
-        "jcr:primaryType":"cq:Component", 
+        "jcr:primaryType":"nt:unstructured", 
         "jcr:content/title":"Parent",
-        "child/jcr:primaryType":"cq:Component",
+        "child/jcr:primaryType":"nt:unstructured",
         "child/jcr:content/title":"Child"
     }
 
     let parent = new Component(null, {"jcr:content/title":"Parent"});
     let child = new Component(null, {"jcr:content/title":"Child"});
-    parent.addComponent("child", child);
+    parent.addChild("child", child);
     expect(parent.getData()).toStrictEqual(targetResult);
 });
+
+// test('Post data method', () => {
+//    SEE: https://jestjs.io/docs/en/bypassing-module-mocks
+// });
