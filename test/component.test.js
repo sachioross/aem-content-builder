@@ -1,4 +1,4 @@
-const Component = require('../index').components.Component;
+const Component = require('../index').components.AbstractComponent;
 
 test('Instantiate new component', () => {
     let initialProps = {

@@ -1,7 +1,7 @@
 const fetch = require('cross-fetch');
 const FormData = require('form-data');
 
-class Component {
+class AbstractComponent {
 
   constructor(props, content) {
     this.props = {
@@ -149,4 +149,4 @@ class Component {
   }
 }
 
-module.exports = Component;
+module.exports = AbstractComponent;

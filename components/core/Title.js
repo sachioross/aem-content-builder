@@ -1,4 +1,4 @@
-const Component = require('../Component');
+const Component = require('../AbstractComponent');
 
 class Title extends Component {
 

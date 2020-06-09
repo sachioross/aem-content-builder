@@ -20,7 +20,7 @@ test('Adding Component and Content', () => {
     }
 
     let p = new aem.components.core.Page();
-    let c = new aem.components.Component();
+    let c = new aem.components.AbstractComponent();
 
     c.setProperty("title", "New Component");
     p.addComponent("new-title",c);

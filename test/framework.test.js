@@ -7,7 +7,7 @@ test('Framework wiring', () => {
         "jcr:primaryType": "nt:unstructured"
     }
 
-    let c = new aem.components.Component();
+    let c = new aem.components.AbstractComponent();
     expect(c.getData()).toStrictEqual(componentObject);
     
     

@@ -3,5 +3,6 @@ module.exports = {
     Title: require('./core/Title'),
     Page: require('./core/Page')  
   },
-  Component: require('./Component')  
+  AbstractPage: require('./AbstractPage'),
+  AbstractComponent: require('./AbstractComponent')  
 }

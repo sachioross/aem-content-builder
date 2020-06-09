@@ -5,7 +5,7 @@ const b64creds = "YWRtaW46YWRtaW4=";
 
 test('Instantiation', () => {
 
-    let c = new aem.components.Component();
+    let c = new aem.components.AbstractComponent();
     c.setProperty("title", `Title ${new Date().getTime()}`);
     c.setResourceType("wknd/components/content/title")
 
