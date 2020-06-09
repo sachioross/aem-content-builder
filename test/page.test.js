@@ -28,3 +28,25 @@ test('Adding Component and Content', () => {
 
     expect(p.getData()).toStrictEqual(testContent);
 });
+
+test('Extending Page from Core', () => {
+    let testContent = {
+        "jcr:primaryType":"cq:Page",
+        "sling:resourceType":"wknd/components/structure/page",
+        "jcr:content/jcr:title":"WKND Migration",
+    }
+
+    class ContentPage extends aem.components.core.Page {
+
+        constructor(title) {
+            super();
+            this.props["sling:resourceType"] = "wknd/components/structure/page";
+            this.setContent("jcr:title", title ? title : "TITLE MISSING"); 
+        }
+    
+    }
+
+    let p = new ContentPage("WKND Migration");
+
+    expect(p.getData()).toStrictEqual(testContent);
+});
