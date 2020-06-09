@@ -9,8 +9,11 @@ const AbstractComponent = require('../AbstractComponent');
  */
 class Title extends AbstractComponent {
 
-    constructor() {
+    constructor(title) {
         super();
+        if (title) {
+            this.setTitle(title);
+        }
         this.props["sling:resourceType"] = "core/wcm/components/title/v2/title";
     }
 
