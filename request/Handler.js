@@ -1,3 +1,5 @@
+const fetch = require('cross-fetch');
+
 /**
  * Allows for the posting of an AEM component to a target AEM system.
  * The {@code request} object should respect the standard FETCH API 
