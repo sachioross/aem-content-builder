@@ -114,39 +114,6 @@ class AbstractComponent {
     }
     return fd;
   }
-
-  /**
-   * Allows for the posting of an AEM component to a target AEM system.
-   * The {@code request} object should respect the standard FETCH API 
-   * Request object, set to the POST method.
-   * @param {req} The Fetch API Request object with URL;
-   * @param {url} url 
-   */
-  post(req) {
-
-    // Form requestID (datestamp + url?)
-    // TODO: Create AEMRequest object set with defaults (auth, method, domain, port), but 
-    // TODO: allow caller to set specific URL and FORM data
-    console.log(`Attempting to post ${JSON.stringify(req)}`);
-
-    fetch(req)
-      .then(res => {
-        console.log(res);
-        if (res.ok) {
-          console.log(`Posted to ${req.url} with a status of ${res.statusCode}`);
-        }
-        res.text();
-
-      })
-      .then(html => {
-        console.log(html)
-      })
-      .catch(err => {
-        console.log(`Error while attempting POST to ${req.url}`);
-        console.log(err);
-        console.log(req);
-      })
-  }
 }
 
 module.exports = AbstractComponent;

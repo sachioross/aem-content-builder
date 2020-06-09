@@ -116,7 +116,3 @@ test('Can be extended', () => {
 
     expect(nc.getData()).toStrictEqual(targetData);
 })
-
-// test('Post data method', () => {
-//    SEE: https://jestjs.io/docs/en/bypassing-module-mocks
-// });

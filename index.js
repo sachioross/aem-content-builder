@@ -1,7 +1,7 @@
 const Components = require('./components');
-const RequestBuilder = require('./request/RequestBuilder');
+const request = require('./request');
 
 module.exports = {
     components: Components, 
-    RequestBuilder: RequestBuilder
+    request: request
 }

@@ -23,7 +23,8 @@ It is expected that the `parse` method can handle all needs of the component to 
   1. Collected the content to be parsed
   2. Pass the chunk of content that relates to this component into the `parse` method
   3. Repeat until all content is properly parsed
-  4. `POST` the request to an AEM instance using the `post` method
+  4. Create a new (POST request)[./reuqest/Post.js] with the target destination
+  4. `POST` the request to an AEM instance using the `handle` method from the (Handler)[./request/Handler.js]
 
 For HTML migrations, this implemenation recommends using the [cheerio library](https://github.com/cheeriojs/cheerio) as it makes the parsing implementation fairly simple.
 
@@ -42,7 +43,10 @@ The current component structure is provided via a single framework entry-point a
     AbstractPage
   }, 
   request: {
-    RequestBuilder
+    AbstractRequest,
+    GET, 
+    POST,
+    Handler
   }
 }
 ```
@@ -80,8 +84,8 @@ page.addComponent(component);
 // Build new AEM request
 
 const pageUrl = "http://localhost:4502/content/wknd/us/en/about";
-let requestBuilder = new aem.RequestBuilder(pageUrl);
-builder.credentails("admin","admin").payload(page.getData());
+let req = new aem.request.POST(pageUrl);
+req.credentails("admin","admin").payload(page.getData());
 
-page.post(builder.build());
+aem.request.Handler.handle(req.build());
 ```
