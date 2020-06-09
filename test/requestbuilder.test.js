@@ -5,16 +5,7 @@ const b64creds = "YWRtaW46YWRtaW4=";
 
 test('Instantiation', () => {
 
-    let c = new aem.components.AbstractComponent();
-    c.setProperty("title", `Title ${new Date().getTime()}`);
-    c.setResourceType("wknd/components/content/title")
-
-    const testURL = `http://localhost:4502/content/wknd/language-masters/en/magazine/_jcr_content/root/responsivegrid/title-${new Date().getTime()}`;
-
-    let builder = new aem.RequestBuilder(testURL); 
-    builder.credentials("admin","admin").payload(c.getData());
-
-    let f = new fetch.Request(testURL, {
+    let targetRequest = new fetch.Request(testURL, {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -27,7 +18,16 @@ test('Instantiation', () => {
         body: builder.data
     })
 
-    expect(builder.build()).toStrictEqual(f);
+    let c = new aem.components.AbstractComponent();
+    c.setProperty("title", `Title ${new Date().getTime()}`);
+    c.setResourceType("wknd/components/content/title")
+
+    const testURL = `http://localhost:4502/content/wknd/language-masters/en/magazine/_jcr_content/root/responsivegrid/title-${new Date().getTime()}`;
+
+    let builder = new aem.RequestBuilder(testURL); 
+    builder.credentials("admin","admin").payload(c.getData());
+    
+    expect(builder.build()).toStrictEqual(targetRequest);
 
 });
 
