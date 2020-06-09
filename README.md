@@ -4,11 +4,15 @@ This is a nodeJS module that is intended to assist with the creation and migrati
 of content from legacy websites into new AEM installations and projects. This tool
 utilizes the Sling POST methods of content manipulation in AEM.
 
-### Context
+> :construction: This project is undergoing serious updates and changes to meet newer standards and patterns. Changes are expected over the next several months. 
+
+> :exclamation: This will now be released as version 2.x.x. This is major breaking changes to previous releases and has no compatibility with previous usage-scenarios. Apologies to anyone whom has used this repository that this will impact; however it was deemed necessary and the benefits outweighed the current usage. Future updates will follow proper notices. 
+
+## Context
 
 This package is to be used as the bases for creating customized content building systems. This package will maintain consistency with release (AEM Core Components)[https://github.com/adobe/aem-core-wcm-components], however the expectation is that implementors will use this package as a basis and then create extensions of the core components in a similar manner to how AEM projects structures using core components. See the (examples)[./examples/] folder for details on usage. 
 
-### Usage Notes
+## Usage Notes
 
 The target of this framework is to enable rapid development of new content creation and migration tools. Single or multi-value property setting, setting of properties and content (e.g. adding under `jcr:content`), and the actual POSTing of data; are accounted for in the (AbstractComponent)[./components/AbstractComponent.js]. The (AbstractPage)[./components/AbstractPage.js] adds the ability to add components, as would be expected in an AEM Page. 
 
@@ -23,7 +27,7 @@ It is expected that the `parse` method can handle all needs of the component to 
 
 For HTML migrations, this implemenation recommends using the [cheerio library](https://github.com/cheeriojs/cheerio) as it makes the parsing implementation fairly simple.
 
-### Structure
+## Structure
 
 The current component structure is provided via a single framework entry-point at (index.js)[./index.js]. Calling `require` on this module will return the following object: 
 
@@ -43,7 +47,7 @@ The current component structure is provided via a single framework entry-point a
 }
 ```
 
-### Usage
+## Usage
 
 The below is an example of how implementations are expected to utilize this script, including use of extension.
 
