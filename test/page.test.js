@@ -1,5 +1,4 @@
-const Page = require('../core/Page');
-const Component = require('../core/Component');
+const aem = require('../index');
 
 test('Page Instantiation', () => {
     let testContent = {
@@ -7,7 +6,7 @@ test('Page Instantiation', () => {
         "sling:resourceType":"core/wcm/components/page"
     }
     
-    let p = new Page();
+    let p = new aem.components.core.Page();
     expect(p.getData()).toStrictEqual(testContent);
 });
 
@@ -20,8 +19,8 @@ test('Adding Component and Content', () => {
         "jcr:content/new-prop":"New Prop Value"
     }
 
-    let p = new Page();
-    let c = new Component();
+    let p = new aem.components.core.Page();
+    let c = new aem.components.Component();
 
     c.setProperty("title", "New Component");
     p.addComponent("new-title",c);

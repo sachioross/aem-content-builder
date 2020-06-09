@@ -1,4 +1,4 @@
-const Component = require('../core/Component');
+const Component = require('../index').components.Component;
 
 test('Instantiate new component', () => {
     let initialProps = {
@@ -96,6 +96,26 @@ test('Add component', () => {
     parent.addChild("child", child);
     expect(parent.getData()).toStrictEqual(targetResult);
 });
+
+test('Can be extended', () => {
+    let targetData = {
+        "jcr:primaryType": "nt:unstructured",
+        "jcr:content/title": "Extended",
+        "sling:resourceType": "my/new/component"
+    }
+
+    class ExtendedComponent extends Component {
+        constructor() {
+            super();
+            this.props['sling:resourceType'] = "my/new/component"
+        }
+    }
+
+    let nc = new ExtendedComponent();
+    nc.setContent("title", "Extended");
+
+    expect(nc.getData()).toStrictEqual(targetData);
+})
 
 // test('Post data method', () => {
 //    SEE: https://jestjs.io/docs/en/bypassing-module-mocks

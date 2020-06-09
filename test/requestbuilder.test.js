@@ -1,18 +1,17 @@
-const RequestBuilder = require('../core/RequestBuilder');
-const Component = require('../core/Component');
+const aem = require('../index');
 const fetch = require('cross-fetch');
 
 const b64creds = "YWRtaW46YWRtaW4=";
 
 test('Instantiation', () => {
 
-    let c = new Component();
+    let c = new aem.components.Component();
     c.setProperty("title", `Title ${new Date().getTime()}`);
     c.setResourceType("wknd/components/content/title")
 
     const testURL = `http://localhost:4502/content/wknd/language-masters/en/magazine/_jcr_content/root/responsivegrid/title-${new Date().getTime()}`;
 
-    let builder = new RequestBuilder(testURL); 
+    let builder = new aem.RequestBuilder(testURL); 
     builder.credentials("admin","admin").payload(c.getData());
 
     let f = new fetch.Request(testURL, {
@@ -33,6 +32,5 @@ test('Instantiation', () => {
 });
 
 test('Static methods', () => {
-
-    expect(RequestBuilder.encode("admin","admin")).toBe(b64creds);
+    expect(aem.RequestBuilder.encode("admin","admin")).toBe(b64creds);
 });
