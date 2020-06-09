@@ -11,7 +11,7 @@ class Accordian extends AbstractComponent {
 
     constructor() {
         super();
-        this.props["sling:resourceType"] = "core-components-examples/components/accordion/v1/accordian";
+        this.props["sling:resourceType"] = "core/wcm/components/accordion/v1/accordian";
     }
 
     setExpandedItems(items) {
@@ -31,4 +31,4 @@ class Accordian extends AbstractComponent {
     }
 }
 
-module.exports = Title;
+module.exports = Accordian;
