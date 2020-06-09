@@ -4,81 +4,80 @@ This is a nodeJS module that is intended to assist with the creation and migrati
 of content from legacy websites into new AEM installations and projects. This tool
 utilizes the Sling POST methods of content manipulation in AEM.
 
-### Program Usage
+### Context
 
-In general, this package is a combination of an API and a built-in posting framework for
-all component definitions. It is intended that this package can act as a starting
-point for migration efforts or test content creation. This is not intended to be
-used without modification specific to a client development needs and components.
+This package is to be used as the bases for creating customized content building systems. This package will maintain consistency with release (AEM Core Components)[https://github.com/adobe/aem-core-wcm-components], however the expectation is that implementors will use this package as a basis and then create extensions of the core components in a similar manner to how AEM projects structures using core components. See the (examples)[./examples/] folder for details on usage. 
 
-In the majority of cases: this package will be a dependency for an associated content
-creator or migration framework. As such, usage of this package will be through extending
-the objects already defined in this library, with some exception.
+### Usage Notes
 
-### Developer Notes
+The target of this framework is to enable rapid development of new content creation and migration tools. Single or multi-value property setting, setting of properties and content (e.g. adding under `jcr:content`), and the actual POSTing of data; are accounted for in the (AbstractComponent)[./components/AbstractComponent.js]. The (AbstractPage)[./components/AbstractPage.js] adds the ability to add components, as would be expected in an AEM Page. 
 
-The target of this framework is to enable rapid development of new content creation
-and migration tools. Single or multi-value property setting, adding child-components,
-and the actual POSTing of data, are accounted for in the base Component.js and
-PageComponent.js files. Developers should only need to extend one of these two
-objects in order to achieve basic functionality.
+While this framework can be used independently to help perform automated content creation within an AEM system as part of a testing or local-development workflow, it was designed to support content migration from legacy systems where the only sufficient option was to parse existing data (in most cases, HTML). As-such, the (AbstractComponent)[./components/AbstractComponent.js] provides the `parse` function. This method is not implemented in the AbstractComponent. Any implementation that intends to use this method is expected to implement this method for each component created. 
 
-For simple content creation, there should be very little effort needed to complete
-a content framework. For migration, an addition method has been added to the base
-Component.js file:
+It is expected that the `parse` method can handle all needs of the component to dynamically set the required properities. In most cases, the expected flow for migration-related content build would be: 
 
-`parse($)`
+  1. Collected the content to be parsed
+  2. Pass the chunk of content that relates to this component into the `parse` method
+  3. Repeat until all content is properly parsed
+  4. `POST` the request to an AEM instance using the `post` method
 
-This method has not been implemented in the base component, leaving the specifics
-of the parsing of the $ object up to the needs of the implementation, per component.
+For HTML migrations, this implemenation recommends using the [cheerio library](https://github.com/cheeriojs/cheerio) as it makes the parsing implementation fairly simple.
 
-In general, it is recommended to use the [cheerio library](https://github.com/cheeriojs/cheerio) as it makes the parsing implementation fairly simple.
+### Structure
 
-#### This is a builder
+The current component structure is provided via a single framework entry-point at (index.js)[./index.js]. Calling `require` on this module will return the following object: 
 
-This library has been designed to be used in a builder-like, chainable fashion. As such, all currently implemented methods return the `this` object after performing its function. This should be maintained for specific-implementations. 
+```javascript
+{
+  components: {
+    core: {
+      Page,
+      Title
+    },
+    AbstractComponent,
+    AbstractPage
+  }, 
+  request: {
+    RequestBuilder
+  }
+}
+```
 
-### Example 
+### Usage
 
-The below example is a rudimentary test-script that demonstrates basic usage of this library. 
+The below is an example of how implementations are expected to utilize this script, including use of extension.
 
 ```javascript
 // Declare the objects we'll need
-var request = require("request");
-var Definitions = require("./index.js");
-var Pages = Definitions.pageFactory;
-var Page = Pages.get("page");
-var Components = Definitions.componentFactory;
-var Par = Components.get("par");
-var Text = Components.get("text");
+const aem = require('aem-content-builder');
 
-// Set the defaults for any requests. 
-// This is considered the minimum required request object that includes auth and
-// useQuerystring parameters (the last is important for setting multi-value properties)
-
-var aemRequest = request.defaults({
-    'auth': {
-        'user': 'admin',
-        'pass': 'admin',
-        'sendImmediately': false
-    },
-    'useQuerystring' : true
+// Create new component for the implementation
+class MyComponent extends aem.components.AbstractComponent {
+  constructor() {
+    super();
+    this.props["sling:resourceType"] = "my/resource/type";
   }
-);
+}
 
-// Create a new page, setting expected path and title
-var page = new Page("/content/test", "Test Migration Page");
+// Create new page for the implementation
+class MyPage extends aem.components.core.Page {
+  construtor() {
+    super();
+    this.props["sling:resourceType"] = "my/project/structure/page";
+  }
+}
 
-// Add a Par component to the page that also includes a child Text component 
-// with the phrase "Hello World" wrapped in an h1 tag, as allowed by the text component
-page.addComponent("par", new Par().addComponent("text", new Text(null, "<h1>Hello World</h1>")));
+// Instantiate and add components
+let page = new MyPage();
+page.setContent("jcr:title", "About Us"); 
+let component = new MyComponent();
+page.addComponent(component);
 
-// Create the page in the local AEM instance
-page.post(aemRequest, "http://localhost:4502/content/test");
+// Build new AEM request
 
-// Add a par to the page created above (note, this is a simplistic example, and might 
-// occasionally have an issue with the fact that NodeJS fires functions asynchronously).
-// A proper implementation should try to promisify this type of interaction. 
-var par = new Par();
-par.post(aemRequest, "http://localhost:4502/content/test/jcr:content/par2");
+const pageUrl = "http://localhost:4502/content/wknd/us/en/about";
+let requestBuilder = new aem.RequestBuilder(pageUrl);
+builder.credentails("admin","admin").payload(page.getData());
+
+page.post(builder.build());
 ```
