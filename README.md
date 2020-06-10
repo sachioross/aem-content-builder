@@ -37,8 +37,8 @@ The current component structure is provided via a single framework entry-point a
   components: {
     core: {
       Accordian,
-	  Breadcrumb,
-	  Page,
+      Breadcrumb,
+      Page,
       Title
     },
     AbstractComponent,

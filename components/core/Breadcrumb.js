@@ -18,16 +18,16 @@ class Breadcrumb extends AbstractComponent {
         this.props["startLevel"] = level;
     }
 
-    setShowHidden(hidden) {
-        this.props["showHidden"] = hidden;
+    setShowHidden(showHidden) {
+        this.props["showHidden"] = showHidden;
     }
 
-    setHideCurrent(current) { 
-        this.props["hideCurrent"] = current;
+    setHideCurrent(hideCurrent) { 
+        this.props["hideCurrent"] = hideCurrent;
     }
-	
-	setDisableShadowing(shadowing) { 
-        this.props["disableShadowing"] = shadowing;
+
+    setDisableShadowing(disableShadowing) { 
+        this.props["disableShadowing"] = disableShadowing;
     }
 
     setID(id) {

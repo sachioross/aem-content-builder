@@ -18,8 +18,8 @@ class Accordian extends AbstractComponent {
         this.props["expandedItems"] = items;
     }
 
-    setSingleExpansion(expansion) {
-        this.props["singleExpansion"] = expansion;
+    setSingleExpansion(single) {
+        this.props["singleExpansion"] = single;
     }
 
     setHeadingElement(heading) { 
