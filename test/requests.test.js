@@ -9,6 +9,7 @@ function createPayload() {
     let c = new aem.components.AbstractComponent();
     c.setProperty("title", `Title ${new Date().getTime()}`);
     c.setResourceType("wknd/components/content/title");
+    c.setMultiValueProp("cq:mixins", ["mix:versionable", "mix:lockable"]);
 
     return c;
 }
@@ -20,6 +21,8 @@ function createFormData(data) {
     formData.append("title",data.title);
     formData.append("jcr:primaryType", "nt:unstructured");
     formData.append("sling:resourceType", "wknd/components/content/title");
+    formData.append("cq:mixins", "mix:versionable");
+    formData.append("cq:mixins", "mix:lockable");
 }
 
 test('Instantiation and usage of the AbstractRequest', () => {
@@ -39,7 +42,7 @@ test('Instantiation and usage of the AbstractRequest', () => {
         referrerPolicy: 'no-referrer',
         body: createFormData(createPayload().getData())
     })
-
+    
     expect(req.build()).toMatchObject(targetRequest);
 });
 
