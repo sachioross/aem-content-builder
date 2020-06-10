@@ -1,4 +1,5 @@
 const fetch = require('cross-fetch');
+const FormData = require('form-data');
 
 class AbstractRequest {
 
@@ -12,7 +13,16 @@ class AbstractRequest {
     }
 
     payload(data) {
-        this.data = data;
+        if (typeof data !== "object") {
+            JSON.parse(data);
+        }
+        let fd = new FormData();
+        Object.keys(data).forEach(key => {
+            if (!Array.isArray(data[key])) {
+                fd.append(key, data[key]);
+            }
+        })
+        this.data = fd;
         return this;
     }
 
