@@ -24,7 +24,7 @@ It is expected that the `parse` method can handle all needs of the component to 
   2. Pass the chunk of content that relates to this component into the `parse` method
   3. Repeat until all content is properly parsed
   4. Create a new (POST request)[./reuqest/Post.js] with the target destination
-  4. `POST` the request to an AEM instance using the `handle` method from the (Handler)[./request/Handler.js]
+  5. `POST` the request to an AEM instance using the `handle` method from the (Handler)[./request/Handler.js]
 
 For HTML migrations, this implemenation recommends using the [cheerio library](https://github.com/cheeriojs/cheerio) as it makes the parsing implementation fairly simple.
 
