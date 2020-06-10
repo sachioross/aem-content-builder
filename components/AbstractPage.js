@@ -5,6 +5,8 @@ class AbstractPage extends Component {
     constructor() {
         super();
         this.props["jcr:primaryType"] = "cq:Page";
+        this.props["jcr:content/jcr:primaryType"] = "cq:PageContent";
+        this.props["jcr:content/jcr:mixinTypes"] = ["mix:versionable"];
     }
 
   /**
