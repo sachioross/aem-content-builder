@@ -18,4 +18,18 @@ test('Component Functions - Happy Path', () => {
     accordian.setID("abc");
 
     expect(accordian.getData()).toStrictEqual(testContent);
+<<<<<<< Updated upstream
+=======
+});
+
+test('Test basic instantiation', () => {
+    let testContent = {
+        "jcr:primaryType": "nt:unstructured",
+        "sling:resourceType": "core/wcm/components/accordion/v1/accordian"
+    }
+
+    let accordian = new aem.components.core.Accordian();
+
+    expect(accordian.getData()).toStrictEqual(testContent);
+>>>>>>> Stashed changes
 });
