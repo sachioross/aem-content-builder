@@ -10,7 +10,7 @@ utilizes the Sling POST methods of content manipulation in AEM.
 
 ## Context
 
-This package is to be used as the bases for creating customized content building systems. This package will maintain consistency with release [AEM Core Components](https://github.com/adobe/aem-core-wcm-components), however the expectation is that implementors will use this package as a basis and then create extensions of the core components in a similar manner to how AEM projects structures using core components. See the[examples](examples/) folder for details on usage. 
+This package is to be used as the bases for creating customized content building systems. This package will maintain consistency with release [AEM Core Components](https://github.com/adobe/aem-core-wcm-components), however the expectation is that implementors will use this package as a basis and then create extensions of the core components in a similar manner to how AEM projects structures using core components. See the [examples](examples/) folder for details on usage. 
 
 ## Usage Notes
 
