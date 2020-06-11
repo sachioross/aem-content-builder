@@ -38,6 +38,13 @@ The current component structure is provided via a single framework entry-point a
     core: {
       Accordian,
       Breadcrumb,
+      Button,
+      Carousel,
+      Commons,
+      Container,
+      ContentFragment,
+      ContentFragmentList,
+      Download,
       Page,
       Title
     },

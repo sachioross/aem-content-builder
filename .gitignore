@@ -36,5 +36,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 .DS_Store
+
+# Ingore IDE Files
 *.iml
 /aem-migrator.code-workspace
+*.vs
