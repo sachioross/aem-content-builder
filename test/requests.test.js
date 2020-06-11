@@ -1,5 +1,6 @@
 const aem = require('../index');
 const fetch = require('cross-fetch');
+const FormData = require('form-data');
 
 const b64creds = "YWRtaW46YWRtaW4=";
 const testURL = `http://localhost:4502/content/wknd/us/en/test`;
@@ -8,8 +9,20 @@ function createPayload() {
     let c = new aem.components.AbstractComponent();
     c.setProperty("title", `Title ${new Date().getTime()}`);
     c.setResourceType("wknd/components/content/title");
+    c.setMultiValueProp("cq:mixins", ["mix:versionable", "mix:lockable"]);
 
     return c;
+}
+
+function createFormData(data) {
+    let formData = new FormData();
+
+    // Manually setting fields for now to ensure logic
+    formData.append("title",data.title);
+    formData.append("jcr:primaryType", "nt:unstructured");
+    formData.append("sling:resourceType", "wknd/components/content/title");
+    formData.append("cq:mixins", "mix:versionable");
+    formData.append("cq:mixins", "mix:lockable");
 }
 
 test('Instantiation and usage of the AbstractRequest', () => {
@@ -27,10 +40,10 @@ test('Instantiation and usage of the AbstractRequest', () => {
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
-        body: req.data
+        body: createFormData(createPayload().getData())
     })
-
-    expect(req.build()).toStrictEqual(targetRequest);
+    
+    expect(req.build()).toMatchObject(targetRequest);
 });
 
 test('GET extension', () => {
@@ -68,10 +81,10 @@ test('POST extension', () => {
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
-        body: req.data
+        body: createFormData(createPayload().getData())
     })
 
-    expect(req.build()).toStrictEqual(targetRequest);
+    expect(req.build()).toMatchObject(targetRequest);
 });
 
 test('Static methods', () => {

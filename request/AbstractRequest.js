@@ -1,4 +1,5 @@
 const fetch = require('cross-fetch');
+const FormData = require('form-data');
 
 class AbstractRequest {
 
@@ -12,7 +13,21 @@ class AbstractRequest {
     }
 
     payload(data) {
-        this.data = data;
+        if (typeof data !== "object") {
+            JSON.parse(data);
+        }
+        let fd = new FormData();
+        Object.keys(data).forEach(key => {
+            if (Array.isArray(data[key])) {
+                data[key].forEach(nested => {
+                    console.log(nested);
+                    fd.append(key, nested);
+                })
+            } else {
+                fd.append(key, data[key]);
+            }
+        })
+        this.data = fd
         return this;
     }
 
@@ -33,6 +48,9 @@ class AbstractRequest {
     }
 
     build() {
+        // Most of the FETCH request is based on default values, however maintaining 
+        // the settings here to ensure interaction clarity
+
         if (this.method === "POST") {
             return new fetch.Request(this.url, {
                 method: "POST", 
@@ -40,9 +58,7 @@ class AbstractRequest {
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
-                    // 'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Content-Type': 'multipart/form-data',
+                    // Allow FETCH to set Content-Header, especially for multi-part form data
                     'Authorization': `Basic ${AbstractRequest.encode(this.user,this.pass)}`
                 },
                 redirect: 'follow', // manual, *follow, error
@@ -50,19 +66,19 @@ class AbstractRequest {
                 body: this.data // body data type must match "Content-Type" header
             });
         } else {
+
+            // FETCH request fields are read-only, thus simpler to create a new request rather 
+            // than attempting to adjust request post-instantiation
             return new fetch.Request(this.url, {
                 method: this.method, 
                 mode: 'cors', 
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
+                cache: 'no-cache', 
+                credentials: 'same-origin',
                 headers: {
-                    // 'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                    // 'Content-Type': 'multipart/form-data',
                     'Authorization': `Basic ${AbstractRequest.encode(this.user,this.pass)}`
                 },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                redirect: 'follow', 
+                referrerPolicy: 'no-referrer', 
             });
         }
         
