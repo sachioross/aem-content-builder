@@ -20,7 +20,6 @@ class AbstractRequest {
         Object.keys(data).forEach(key => {
             if (Array.isArray(data[key])) {
                 data[key].forEach(nested => {
-                    console.log(nested);
                     fd.append(key, nested);
                 })
             } else {
