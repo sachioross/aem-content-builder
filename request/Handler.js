@@ -16,7 +16,7 @@ function handle(req) {
         .then(res => {
             console.log(res);
             if (res.ok) {
-                console.log(`Posted to ${req.url} with a status of ${res.statusCode}`);
+                console.log(`Posted to ${req.url} with a status of ${res.status}`);
             }
             res.text();
         })

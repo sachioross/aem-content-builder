@@ -3,7 +3,11 @@ const aem = require('../index');
 test('Page Instantiation', () => {
     let testContent = {
         "jcr:primaryType":"cq:Page",
-        "sling:resourceType":"core/wcm/components/page"
+        "jcr:content/sling:resourceType":"core/wcm/components/page",
+        "jcr:content/jcr:primaryType":"cq:PageContent",
+        "jcr:content/jcr:mixinTypes": [
+            "mix:versionable"
+        ],
     }
     
     let p = new aem.components.core.Page();
@@ -13,7 +17,11 @@ test('Page Instantiation', () => {
 test('Adding Component and Content', () => {
     let testContent = {
         "jcr:primaryType":"cq:Page",
-        "sling:resourceType":"core/wcm/components/page",
+        "jcr:content/sling:resourceType":"core/wcm/components/page",
+        "jcr:content/jcr:primaryType":"cq:PageContent",
+        "jcr:content/jcr:mixinTypes": [
+            "mix:versionable"
+        ],
         "jcr:content/new-title/jcr:primaryType":"nt:unstructured",
         "jcr:content/new-title/title":"New Component",
         "jcr:content/new-prop":"New Prop Value"
@@ -32,15 +40,19 @@ test('Adding Component and Content', () => {
 test('Extending Page from Core', () => {
     let testContent = {
         "jcr:primaryType":"cq:Page",
-        "sling:resourceType":"wknd/components/structure/page",
+        "jcr:content/sling:resourceType":"wknd/components/structure/page",
         "jcr:content/jcr:title":"WKND Migration",
+        "jcr:content/jcr:primaryType":"cq:PageContent",
+        "jcr:content/jcr:mixinTypes": [
+            "mix:versionable"
+        ],
     }
 
     class ContentPage extends aem.components.core.Page {
 
         constructor(title) {
             super();
-            this.props["sling:resourceType"] = "wknd/components/structure/page";
+            this.props["jcr:content/sling:resourceType"] = "wknd/components/structure/page";
             this.setContent("jcr:title", title ? title : "TITLE MISSING"); 
         }
     
