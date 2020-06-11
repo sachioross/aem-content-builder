@@ -31,3 +31,14 @@ test('Test instantiation with title', () => {
 
     expect(title.getData()).toStrictEqual(testContent);
 });
+
+test('Test basic instantiation', () => {
+    let testContent = {
+        "jcr:primaryType":"nt:unstructured",
+        "sling:resourceType":"core/wcm/components/title/v2/title"
+    }
+
+    let title = new aem.components.core.Title();
+
+    expect(title.getData()).toStrictEqual(testContent);
+});
