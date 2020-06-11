@@ -89,3 +89,19 @@ req.credentails("admin","admin").payload(page.getData());
 
 aem.request.Handler.handle(req.build());
 ```
+
+## Running Examples
+
+> :exclamation: Thes examples depend on having the (AEM WKND tutorial)[https://github.com/adobe/aem-guides-wknd] installed.
+
+Users can run the (examples)[examples/] by navigating to the folder and running `node <file>` (e.g. `node create-page.js`). Default configuration, located in (examples/wknd/config.js)[examples/wknd/config.js] is as follows: 
+
+| key | purpose | default setting |
+|---|---|---|
+| host | AEM host address | http://localhost:4502 |
+| page | Path in AEM where data will be created | /content/wknd/us/en/auto-generated |
+| timestamp | Set 'true' to append a time-stamp to component and page urls for repeat runs without cleanup | true |
+| user | username for AEM | admin |
+| pw | password for AEM | admin |
+
+Note that this is all clear-text, so don't store sensative or real passwords in this configuration; it's only for local testing! 

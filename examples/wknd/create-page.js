@@ -1,4 +1,5 @@
 const aem = require('../../index');
+const targets = require('./config');
 
 // Create a Page class for WKND
 class ContentPage extends aem.components.core.Page {
@@ -17,12 +18,12 @@ let cp = new ContentPage("Auto-Generated Page");
 cp.setMultiValueProp("jcr:content/migratedTags", ["one", "two", 3]);
 
 // Instantiate a new AEM request with the proper target location
-const target = "http://localhost:4502"
-let req = new aem.request.POST(`${target}/content/wknd/us/en/auto-generated`); 
+// Default will create a url akin to: http://localhost:4502/content/wknd/us/en/auto-generated-1591832077915
+let req = new aem.request.POST(`${targets.host}${targets.page}${targets.timestamp ? "-" + new Date().getTime() : ""}`); 
 
-console.log(cp.getData());
+
 // Add the appropriate credentials and payload
-req.credentials("admin", "admin").payload(cp.getData());
+req.credentials(targets.user, targets.pw).payload(cp.getData());
 
 // Create the new page in the targeted instance
 aem.request.Handler.handle(req.build());
