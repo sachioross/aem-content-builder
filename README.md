@@ -10,13 +10,13 @@ utilizes the Sling POST methods of content manipulation in AEM.
 
 ## Context
 
-This package is to be used as the bases for creating customized content building systems. This package will maintain consistency with release (AEM Core Components)[https://github.com/adobe/aem-core-wcm-components], however the expectation is that implementors will use this package as a basis and then create extensions of the core components in a similar manner to how AEM projects structures using core components. See the (examples)[./examples/] folder for details on usage. 
+This package is to be used as the bases for creating customized content building systems. This package will maintain consistency with release [AEM Core Components](https://github.com/adobe/aem-core-wcm-components), however the expectation is that implementors will use this package as a basis and then create extensions of the core components in a similar manner to how AEM projects structures using core components. See the[examples](examples/) folder for details on usage. 
 
 ## Usage Notes
 
-The target of this framework is to enable rapid development of new content creation and migration tools. Single or multi-value property setting, setting of properties and content (e.g. adding under `jcr:content`), and the actual POSTing of data; are accounted for in the (AbstractComponent)[./components/AbstractComponent.js]. The (AbstractPage)[./components/AbstractPage.js] adds the ability to add components, as would be expected in an AEM Page. 
+The target of this framework is to enable rapid development of new content creation and migration tools. Single or multi-value property setting, setting of properties and content (e.g. adding under `jcr:content`), and the actual POSTing of data; are accounted for in the [AbstractComponent](./components/AbstractComponent.js). The [AbstractPage](./components/AbstractPage.js) adds the ability to add components, as would be expected in an AEM Page. 
 
-While this framework can be used independently to help perform automated content creation within an AEM system as part of a testing or local-development workflow, it was designed to support content migration from legacy systems where the only sufficient option was to parse existing data (in most cases, HTML). As-such, the (AbstractComponent)[./components/AbstractComponent.js] provides the `parse` function. This method is not implemented in the AbstractComponent. Any implementation that intends to use this method is expected to implement this method for each component created. 
+While this framework can be used independently to help perform automated content creation within an AEM system as part of a testing or local-development workflow, it was designed to support content migration from legacy systems where the only sufficient option was to parse existing data (in most cases, HTML). As-such, the [AbstractComponent](./components/AbstractComponent.js) provides the `parse` function. This method is not implemented in the AbstractComponent. Any implementation that intends to use this method is expected to implement this method for each component created. 
 
 It is expected that the `parse` method can handle all needs of the component to dynamically set the required properities. In most cases, the expected flow for migration-related content build would be: 
 
@@ -30,7 +30,7 @@ For HTML migrations, this implemenation recommends using the [cheerio library](h
 
 ## Structure
 
-The current component structure is provided via a single framework entry-point at (index.js)[./index.js]. Calling `require` on this module will return the following object: 
+The current component structure is provided via a single framework entry-point at [index.js](./index.js). Calling `require` on this module will return the following object: 
 
 ```javascript
 {
@@ -94,9 +94,9 @@ aem.request.Handler.handle(req.build());
 
 ## Running Examples
 
-> :exclamation: Thes examples depend on having the (AEM WKND tutorial)[https://github.com/adobe/aem-guides-wknd] installed.
+> :exclamation: Thes examples depend on having the [AEM WKND tutorial](https://github.com/adobe/aem-guides-wknd) installed.
 
-Users can run the (examples)[examples/] by navigating to the folder and running `node <file>` (e.g. `node create-page.js`). Default configuration, located in (examples/wknd/config.js)[examples/wknd/config.js] is as follows: 
+Users can run the [examples](examples/) by navigating to the folder and running `node <file>` (e.g. `node create-page.js`). Default configuration, located in [examples/wknd/config.js](examples/wknd/config.js) is as follows: 
 
 | key | purpose | default setting |
 |---|---|---|
