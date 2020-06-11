@@ -12,7 +12,7 @@ test('Component Functions - Happy Path', () => {
 
     let accordian = new aem.components.core.Accordian();
 
-    accordian.setExpandedItems"header");
+    accordian.setExpandedItems("header");
     accordian.setSingleExpansion(false);
     accordian.setHeadingElement("h3");
     accordian.setID("abc");
