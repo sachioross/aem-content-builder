@@ -7,7 +7,7 @@ const AbstractComponent = require('../AbstractComponent');
  * Based on the documentation found at:
  * https://github.com/adobe/aem-core-wcm-components/tree/master/content/src/content/jcr_root/apps/core/wcm/components/accordion/v1/accordion
  */
-class Accordian extends AbstractComponent {
+class Accordion extends AbstractComponent {
 
     constructor() {
         super();
@@ -31,4 +31,4 @@ class Accordian extends AbstractComponent {
     }
 }
 
-module.exports = Accordian;
+module.exports = Accordion;
