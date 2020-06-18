@@ -1,5 +1,5 @@
 const target = {
-    host: "http://localhost:4504", 
+    host: "http://localhost:4502", 
     page: "/content/wknd/us/en/auto-generated",
     timestamp: true,
     user: "admin",
