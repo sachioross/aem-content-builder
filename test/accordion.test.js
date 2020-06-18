@@ -17,7 +17,7 @@ test('Component Functions - Happy Path', () => {
     accordion.setHeadingElement("h3");
     accordion.setID("abc");
 
-    expect(accordian.getData()).toStrictEqual(testContent);
+    expect(accordion.getData()).toStrictEqual(testContent);
 });
 
 test('Test basic instantiation', () => {
