@@ -14,8 +14,8 @@ class ContentFragmentList extends AbstractComponent {
         this.props["sling:resourceType"] = "core/wcm/components/contentfragmentlist/v1/contentfragmentlist";
     }
 
-    setModalPath(modalPath) {
-        this.props["modalPath"] = modalPath;
+    setModelPath(modelPath) {
+        this.props["modelPath"] = modelPath;
     }
 
     setParentPath(parentPath) {
@@ -23,7 +23,7 @@ class ContentFragmentList extends AbstractComponent {
     }
 
     setTagNames(tagNames) {
-        this.props["tagNames"] = tagNames;
+        this.setMultiValueProp("tagNames",tagNames);
     }
 
     setOrderBy(orderBy) {
@@ -39,7 +39,7 @@ class ContentFragmentList extends AbstractComponent {
     }
 
     setElementNames(elementNames) {
-        this.props["elementNames"] = elementNames;
+        this.setMultiValueProp("elementNames",elementNames);
     }
 
     setID(id) {

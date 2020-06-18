@@ -23,7 +23,7 @@ class ContentFragment extends AbstractComponent {
     }
 
     setElementNames(elementNames) {
-        this.props["elementNames"] = elementNames;
+        this.setMultiValueProp("elementNames", elementNames);
     }
 
     setParagraphScope(paragraphScope) {
@@ -35,7 +35,7 @@ class ContentFragment extends AbstractComponent {
     }
 
     setParagraphHeadings(paragraphHeadings) {
-        this.props["paragraphHeadings"] = paragraphHeadings;
+        this.setMultiValueProp("paragraphHeadings",paragraphHeadings);
     }
 
     setID(id) {
