@@ -25,7 +25,7 @@ let destination = "/content/wknd/us/en/adventures/ski-touring-mont-blanc/jcr:con
 let req = new aem.request.POST(`${targets.host}${destination}/title-${new Date().getTime()}`); 
 
 // Add the appropriate credentials and payload
-req.credentials("admin", "admin").payload(title.getData());
+req.credentials(targets.user, targets.pw).payload(title.getData());
 
 // Create the new page in the targeted instance
 aem.request.Handler.handle(req.build());
