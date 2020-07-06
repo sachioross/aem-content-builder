@@ -12,11 +12,11 @@ const AbstractComponent = require('../AbstractComponent');
 
  	constructor() {
  		super();
- 		this.props["sling:resourceType"] - "core/wcm/components/experiencefragment/v1/experiencefragment";
+ 		this.props["sling:resourceType"] = "core/wcm/components/experiencefragment/v1/experiencefragment";
  	}
 
- 	setFragmentVariationPath(variation_path) {
- 		this.props["fragmentVariationPath"] = variation_path;
+ 	setFragmentVariationPath(variationPath) {
+ 		this.props["fragmentVariationPath"] = variationPath;
  	}
 
  	setID(id) {
