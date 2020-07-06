@@ -15,8 +15,8 @@ const AbstractComponent = require('../AbstractComponent');
  		this.props["sling:resourceType"] = "core/wmc/components/languagenavigation/v1/languagenavigation"
  	}
 
- 	setNavigationRoot(nav_root) {
- 		this.props["navigationRoot"] = nav_root;
+ 	setNavigationRoot(navRoot) {
+ 		this.props["navigationRoot"] = navRoot;
  	}
 
  	setStructureDepth(depth) {
