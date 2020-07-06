@@ -19,14 +19,8 @@ const AbstractComponent = require('../AbstractComponent');
  		this.props["fileReference"] = reference;
  	}
 
- 	setIsDecorative(decorative, alt = 0) {
+ 	setIsDecorative(decorative) {
  		this.props["isDecorative"] = decorative;
- 		
- 		/*
- 		if(!decorative) {
- 			this.props["alt"] = alt;
- 		}
- 		*/
  	}
 
  	setAlt(alt) {
@@ -48,11 +42,7 @@ const AbstractComponent = require('../AbstractComponent');
  	setID(id) {
  		this.props["id"] = id;
  	}
-
+  
  }
 
 module.exports = Image;
-
-
-
-
