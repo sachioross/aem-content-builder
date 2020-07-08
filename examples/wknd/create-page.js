@@ -19,11 +19,27 @@ cp.setMultiValueProp("jcr:content/migratedTags", ["one", "two", 3]);
 
 // Instantiate a new AEM request with the proper target location
 // Default will create a url akin to: http://localhost:4502/content/wknd/us/en/auto-generated-1591832077915
-let req = new aem.request.POST(`${targets.host}${targets.page}${targets.timestamp ? "-" + new Date().getTime() : ""}`); 
+let pagePath = `${targets.host}${targets.page}${targets.timestamp ? "-" + new Date().getTime() : ""}`;
+let req = new aem.request.POST(pagePath); 
 
 
 // Add the appropriate credentials and payload
 req.credentials(targets.user, targets.pw).payload(cp.getData());
 
-// Create the new page in the targeted instance
-aem.request.Handler.handle(req.build());
+// Create the new page in the targeted instance, and then follows with creating a secondary child page
+aem.request.Handler.handle(req.build())
+    .then(res => {
+        let child = new ContentPage("Auto-Generated Child");
+        let childReq = new aem.request.POST(`${pagePath}/child`); 
+        childReq.credentials(targets.user, targets.pw).payload(child.getData());
+        aem.request.Handler.handle(childReq.build())
+            .then(res => {
+                console.log(res.status);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    })
+    .catch (err => {
+        console.log(err);
+    })
