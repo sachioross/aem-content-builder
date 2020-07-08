@@ -12,7 +12,7 @@ const AbstractComponent = require('../AbstractComponent');
 
  	constructor() {
  		super();
- 		this.props["sling:resourceType"] = "core/wmc/components/form/button/v2/button"
+ 		this.props["sling:resourceType"] = "core/wcm/components/form/button/v2/button"
  	}
 
  	setTitle(title) {

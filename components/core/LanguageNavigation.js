@@ -12,7 +12,7 @@ const AbstractComponent = require('../AbstractComponent');
 
  	constructor() {
  		super();
- 		this.props["sling:resourceType"] = "core/wmc/components/languagenavigation/v1/languagenavigation"
+ 		this.props["sling:resourceType"] = "core/wcm/components/languagenavigation/v1/languagenavigation"
  	}
 
  	setNavigationRoot(navRoot) {

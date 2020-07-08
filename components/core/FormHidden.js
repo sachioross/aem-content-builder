@@ -12,7 +12,7 @@ const AbstractComponent = require('../AbstractComponent');
 
  	constructor() {
  		super();
- 		this.props["sling:resourceType"] = "core/wmc/components/form/hidden/v2/hidden"
+ 		this.props["sling:resourceType"] = "core/wcm/components/form/hidden/v2/hidden"
  	}
 
  	setName(name) {
