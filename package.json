@@ -13,8 +13,7 @@
     "request": "^2.75.0"
   },
   "devDependencies": {
-    "jest": "^26.0.1",
-    "mocha": "^3.1.2"
+    "jest": "^26.0.1"
   },
   "scripts": {
     "test": "jest test"

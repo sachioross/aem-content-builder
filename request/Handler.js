@@ -12,22 +12,22 @@ function handle(req) {
     // Form requestID (datestamp + url?)
     console.log(`Attempting to post ${JSON.stringify(req)}`);
 
-    fetch(req)
+    return new Promise((resolve, reject) => {
+        fetch(req)
         .then(res => {
             console.log(res);
             if (res.ok) {
                 console.log(`Posted to ${req.url} with a status of ${res.status}`);
             }
-            res.text();
-        })
-        .then(html => {
-            console.log(html)
+            resolve(res);
         })
         .catch(err => {
             console.log(`Error while attempting POST to ${req.url}`);
             console.log(err);
             console.log(req);
+            reject(err);
         })
+    })
 }
 
 module.exports = {
