@@ -1,6 +1,6 @@
-const Component = require('./AbstractComponent');
+const Sling = require('../sling');
 
-class AbstractPage extends Component {
+class AbstractPage extends Sling.Resource {
 
     constructor() {
         super();

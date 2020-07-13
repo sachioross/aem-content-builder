@@ -12,5 +12,5 @@ module.exports = {
     Download: require('./core/Download')
   },
   AbstractPage: require('./AbstractPage'),
-  AbstractComponent: require('./AbstractComponent')  
+  AbstractComponent: require('./AbstractComponent')
 }
