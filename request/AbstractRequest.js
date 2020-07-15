@@ -40,6 +40,11 @@ class AbstractRequest {
         return this;
     }
 
+    setCookie(cookie) {
+        this.cookie = cookie;
+        return this;
+    }
+
     credentials(username, password) {
         this.user = username;
         this.pass = password;
@@ -50,37 +55,28 @@ class AbstractRequest {
         // Most of the FETCH request is based on default values, however maintaining 
         // the settings here to ensure interaction clarity
 
-        if (this.method === "POST") {
-            return new fetch.Request(this.url, {
-                method: "POST", 
-                mode: 'cors', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    // Allow FETCH to set Content-Header, especially for multi-part form data
-                    'Authorization': `Basic ${AbstractRequest.encode(this.user,this.pass)}`
-                },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: this.data // body data type must match "Content-Type" header
-            });
-        } else {
-
-            // FETCH request fields are read-only, thus simpler to create a new request rather 
-            // than attempting to adjust request post-instantiation
-            return new fetch.Request(this.url, {
-                method: this.method, 
-                mode: 'cors', 
-                cache: 'no-cache', 
-                credentials: 'same-origin',
-                headers: {
-                    'Authorization': `Basic ${AbstractRequest.encode(this.user,this.pass)}`
-                },
-                redirect: 'follow', 
-                referrerPolicy: 'no-referrer', 
-            });
+        let opts = {
+            method: this.method, 
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include, *same-origin, omit
+            headers: {
+                // Allow FETCH to set Content-Header, especially for multi-part form data
+                'Authorization': `Basic ${AbstractRequest.encode(this.user,this.pass)}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }
-        
+
+        if (this.method === "POST") {
+            opts.body = this.data;
+        }
+
+        if (this.cookie) {
+            opts.headers.cookie = this.cookie;
+        }
+
+        return new fetch.Request(this.url, opts);
     }
 }
 

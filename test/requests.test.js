@@ -87,6 +87,28 @@ test('POST extension', () => {
     expect(req.build()).toMatchObject(targetRequest);
 });
 
+test('POST extension with cookies', () => {
+
+    let req = new aem.request.POST(testURL); 
+    req.credentials("admin","admin").payload(createPayload().getData()).setCookie("login-token 0123456789abcdef");
+    
+    let targetRequest = new fetch.Request(testURL, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Authorization': `Basic ${b64creds}`,
+            cookie: ["login-token 0123456789abcdef"]
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: createFormData(createPayload().getData())
+    })
+
+    expect(req.build()).toMatchObject(targetRequest);
+});
+
 test('Static methods', () => {
     expect(aem.request.AbstractRequest.encode("admin","admin")).toBe(b64creds);
 });
