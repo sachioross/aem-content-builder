@@ -1,6 +1,6 @@
 {
   "name": "aem-content-builder",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "NodeJS utility to rapidly define AEM components, structures, set associated content and issue Sling POST requests to a target AEM instance. Can be used as a stand-alone content creation library or as part of a migration tool for AEM. ",
   "main": "index.js",
   "repository": {
