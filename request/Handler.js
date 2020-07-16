@@ -7,7 +7,7 @@ const fetch = require('cross-fetch');
  * @param {req} The Fetch API Request object with URL;
  * @param {url} url 
  */
-function handle(req) {
+function handle(req, opts) {
 
     // Form requestID (datestamp + url?)
     console.log(`Attempting to post ${JSON.stringify(req)}`);
@@ -15,7 +15,9 @@ function handle(req) {
     return new Promise((resolve, reject) => {
         fetch(req)
         .then(res => {
-            console.log(res);
+            if (opts.logResponse) {
+                console.log(res);
+            }
             if (res.ok) {
                 console.log(`Posted to ${req.url} with a status of ${res.status}`);
             }
