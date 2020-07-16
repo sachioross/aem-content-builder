@@ -9,6 +9,8 @@ const fetch = require('cross-fetch');
  */
 function handle(req, opts) {
 
+    opts = opts ? opts : {};
+
     // Form requestID (datestamp + url?)
     console.log(`Attempting to post ${JSON.stringify(req)}`);
 
