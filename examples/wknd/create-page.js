@@ -24,22 +24,30 @@ let req = new aem.request.POST(pagePath);
 
 
 // Add the appropriate credentials and payload
-req.credentials(targets.user, targets.pw).payload(cp.getData());
+req.payload(cp.getData());
 
 // Create the new page in the targeted instance, and then follows with creating a secondary child page
-aem.request.Handler.handle(req.build())
+aem.request.Handler.login(targets.host, targets.user, targets.pw)
     .then(res => {
-        let child = new ContentPage("Auto-Generated Child");
-        let childReq = new aem.request.POST(`${pagePath}/child`); 
-        childReq.credentials(targets.user, targets.pw).payload(child.getData());
-        aem.request.Handler.handle(childReq.build())
+        loginToken = res.headers.get("set-cookie");
+        req.setCookie(loginToken);
+        aem.request.Handler.handle(req.build(), {logRequest: true, logResponse: true})
             .then(res => {
-                console.log(res.status);
+                let child = new ContentPage("Auto-Generated Child");
+                let childReq = new aem.request.POST(`${pagePath}/child`); 
+                childReq.setCookie(loginToken).payload(child.getData());
+                aem.request.Handler.handle(childReq.build())
+                    .then(res => {
+                        console.log(res.status);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
             })
-            .catch(err => {
+            .catch (err => {
                 console.log(err);
             })
     })
-    .catch (err => {
+    .catch(err => {
         console.log(err);
     })
