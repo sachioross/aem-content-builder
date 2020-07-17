@@ -9,7 +9,7 @@ aem.request.Handler.login(targets.host, targets.user, targets.pw)
     .then(res => {
 
         let damReq = new aem.request.POST(`${targets.host}/api/assets/${path.basename(filePath)}`)
-            .addBinary(path.basename(filePath), filePath); 
+            .addBinary("file", filePath); 
             damReq.setCookie(res.headers.get('set-cookie'));
             
         aem.request.Handler.handle(damReq.build(), {logRequest: true})

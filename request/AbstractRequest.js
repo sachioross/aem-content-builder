@@ -47,7 +47,8 @@ class AbstractRequest {
     }
 
     addBinary(name, filePath) {
-        this.data[name] = fs.createReadStream(filePath);
+        this.data = this.data ? this.data : new FormData();
+        this.data.append(name, fs.createReadStream(filePath));
         return this;
     }
 
