@@ -1,5 +1,6 @@
 const fetch = require('cross-fetch');
 const FormData = require('form-data');
+const fs = require('fs');
 
 class AbstractRequest {
 
@@ -42,6 +43,11 @@ class AbstractRequest {
 
     setCookie(cookie) {
         this.cookie = cookie;
+        return this;
+    }
+
+    addBinary(name, filePath) {
+        this.data[name] = fs.createReadStream(filePath);
         return this;
     }
 
