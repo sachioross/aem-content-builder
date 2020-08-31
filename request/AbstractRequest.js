@@ -24,7 +24,7 @@ class AbstractRequest {
                     fd.append(key, nested);
                 })
             } else {
-                if (opts || opts.outputErrors) {
+                if (opts && opts.outputErrors) {
                     if (data[key] === null) {
                         console.log(`${key} is null in ${data}`);
                     }
