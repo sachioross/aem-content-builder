@@ -87,6 +87,32 @@ test('POST extension', () => {
     expect(req.build()).toMatchObject(targetRequest);
 });
 
+test('PUT method with JSON body', () => {
+
+    let reqBody = {"class":"asset", "properties":{"jcr:title":"My Asset"}};
+
+    let req = new aem.request.AbstractRequest();
+    req.changeMethodTo("PUT");
+    req.setBody(reqBody);
+
+    let targetRequest = new fetch.Request(testURL, {
+        method: 'PUT',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Authorization': `Basic ${b64creds}`,
+            cookie: ["login-token 0123456789abcdef"]
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(reqBody)
+    })
+
+    expect(req.build()).toMatchObject(targetRequest);
+
+})
+
 test('POST extension with cookies', () => {
 
     let req = new aem.request.POST(testURL); 

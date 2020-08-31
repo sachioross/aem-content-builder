@@ -13,7 +13,7 @@ class AbstractRequest {
         this.data = '';
     }
 
-    payload(data) {
+    payload(data, opts) {
         if (typeof data !== "object") {
             JSON.parse(data);
         }
@@ -24,10 +24,20 @@ class AbstractRequest {
                     fd.append(key, nested);
                 })
             } else {
+                if (opts || opts.outputErrors) {
+                    if (data[key] === null) {
+                        console.log(`${key} is null in ${data}`);
+                    }
+                }
                 fd.append(key, data[key]);
             }
         })
         this.data = fd
+        return this;
+    }
+
+    setBody(content) {
+        this.data = JSON.stringify(content);
         return this;
     }
 
@@ -75,7 +85,7 @@ class AbstractRequest {
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }
 
-        if (this.method === "POST") {
+        if (this.method === "POST" || this.method === "PUT") {
             opts.body = this.data;
         }
 
