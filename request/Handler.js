@@ -90,5 +90,6 @@ function deletePage(path, loginCookie, opts) {
 
 module.exports = {
     handle: handle,
-    login: login
+    login: login,
+    deletePage: deletePage
 }
