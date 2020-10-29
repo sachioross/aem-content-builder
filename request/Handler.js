@@ -61,15 +61,15 @@ function login(host, user, pass, opts) {
     })
 }
 
-function deletePage(path, loginCookie, opts) {
+function deletePage(host, path, loginCookie, opts) {
 
     opts = opts ? opts : {};
  
     let deleteRequest = new POST(`${host}/bin/wcmcommand`);
     deleteRequest.payload({
         _charset_: "UTF-8",
-        force : true, 
-        checkChildren : false, 
+        force : "true", 
+        checkChildren : "false", 
         cmd: "deletePage", 
         path: path
     }).setCookie(loginCookie);
