@@ -77,12 +77,18 @@ function deletePage(host, path, loginCookie, opts) {
     return new Promise((resolve, reject) => {
         handle(deleteRequest.build())
             .then(res => {
+                if (opts.logRequest) {
+                    console.dir(deleteRequest, {depth: 5});
+                }
                 if (opts.logResponse) {
                     console.dir(res, {depth: 5});
                 }
                 resolve(res);
             })
             .catch(err => {
+                if (opts.logRequest) {
+                    console.dir(deleteRequest, {depth: 5});
+                }
                 reject(err);
             })
     })
