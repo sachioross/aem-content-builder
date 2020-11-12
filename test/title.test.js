@@ -15,7 +15,7 @@ test('Component Functions - Happy Path', () => {
     title.setTitle("My Title");
     title.setHeaderType("h2");
     title.setLink("/content/test/page");
-    title.setID("abc");
+    title.setId("abc");
 
     expect(title.getData()).toStrictEqual(testContent);
 });
