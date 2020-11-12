@@ -28,10 +28,6 @@ class Title extends AbstractComponent {
     setLink(link) { 
         this.props["linkURL"] = link;
     }
-
-    setID(id) {
-        this.props["id"] = id;
-    }
 }
 
 module.exports = Title;
