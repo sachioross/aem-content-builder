@@ -1,6 +1,7 @@
 module.exports = {
   core: {
     Title: require('./core/Title'),
+    Teaser: require('./core/Teaser'),
     Page: require('./core/Page'), 
     Accordion: require('./core/Accordion'),
     Breadcrumb: require('./core/Breadcrumb'),
