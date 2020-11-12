@@ -22,6 +22,14 @@ class AbstractPage extends Sling.Resource {
     }
     return this;
   }
+
+  setResourceType(type) {
+    this.setProperty("jcr:content/sling:resourceType", type);
+  }
+
+  setTemplate(template) {
+    this.setProperty("jcr:content/cq:template", template);
+  }
 }
 
 module.exports = AbstractPage;

@@ -74,7 +74,24 @@ test('Able to set and reset actions', () => {
         content: {}
     }
 
-    
+    expect(t1).toEqual(expected);
+})
+
+test('Responsive settings', () => {
+    let t1 = new aem.components.core.Teaser();
+    t1.setResponsiveSetting({key: 'mobile', offset: 2, width: 4});
+
+    const expected = {
+        props: {
+            'jcr:primaryType': 'nt:unstructured',
+            'sling:resourceType': 'core/wcm/components/teaser/v1/teaser',
+            'cq:responsive/jcr:primaryType': 'nt:unstructured',
+            'cq:responsive/mobile/jcr:primaryType': 'nt:unstructured',
+            'cq:responsive/mobile/offset': '2', 
+            'cq:responsive/mobile/width': '4'
+        },
+        content: {}
+    }
 
     expect(t1).toEqual(expected);
 })
