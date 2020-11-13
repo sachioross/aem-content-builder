@@ -4,8 +4,6 @@ This is a nodeJS module that is intended to assist with the creation and migrati
 of content from legacy websites into new AEM installations and projects. This tool
 utilizes the Sling POST methods of content manipulation in AEM.
 
-> :construction: This project is undergoing serious updates and changes to meet newer standards and patterns. Changes are expected over the next several months. 
-
 > :exclamation: This will now be released as version 2.x.x. This is major breaking changes to previous releases and has no compatibility with previous usage-scenarios. Apologies to anyone whom has used this repository that this will impact; however it was deemed necessary and the benefits outweighed the current usage. Future updates will follow proper notices. 
 
 ## Context
@@ -14,19 +12,7 @@ This package is to be used as the bases for creating customized content building
 
 ## Usage Notes
 
-The target of this framework is to enable rapid development of new content creation and migration tools. Single or multi-value property setting, setting of properties and content (e.g. adding under `jcr:content`), and the actual POSTing of data; are accounted for in the [AbstractComponent](./components/AbstractComponent.js). The [AbstractPage](./components/AbstractPage.js) adds the ability to add components, as would be expected in an AEM Page. 
-
-While this framework can be used independently to help perform automated content creation within an AEM system as part of a testing or local-development workflow, it was designed to support content migration from legacy systems where the only sufficient option was to parse existing data (in most cases, HTML). As-such, the [AbstractComponent](./components/AbstractComponent.js) provides the `parse` function. This method is not implemented in the AbstractComponent. Any implementation that intends to use this method is expected to implement this method for each component created. 
-
-It is expected that the `parse` method can handle all needs of the component to dynamically set the required properities. In most cases, the expected flow for migration-related content build would be: 
-
-  1. Collected the content to be parsed
-  2. Pass the chunk of content that relates to this component into the `parse` method
-  3. Repeat until all content is properly parsed
-  4. Create a new (POST request)[./reuqest/Post.js] with the target destination
-  5. `POST` the request to an AEM instance using the `handle` method from the (Handler)[./request/Handler.js]
-
-For HTML migrations, this implemenation recommends using the [cheerio library](https://github.com/cheeriojs/cheerio) as it makes the parsing implementation fairly simple.
+The target of this framework is to enable rapid development of new content creation and migration tools. Single or multi-value property setting and the setting of properties and content (e.g. adding under `jcr:content`) are accounted for in the [AbstractComponent](./components/AbstractComponent.js). The [AbstractPage](./components/AbstractPage.js) adds the ability to add components and page-related properties, such as the associated template, as would be expected in an AEM Page. 
 
 ## Structure
 
@@ -45,11 +31,18 @@ The current component structure is provided via a single framework entry-point a
       ContentFragment,
       ContentFragmentList,
       Download,
+      Image,
       Page,
+      Teaser,
+      Text,
       Title
     },
     AbstractComponent,
     AbstractPage
+  },
+  sling: {
+    Resource,
+    Folder
   }, 
   request: {
     AbstractRequest,
@@ -72,7 +65,7 @@ const aem = require('aem-content-builder');
 class MyComponent extends aem.components.AbstractComponent {
   constructor() {
     super();
-    this.props["sling:resourceType"] = "my/resource/type";
+    this.setResourceType("my/resource/type");
   }
 }
 
@@ -80,7 +73,7 @@ class MyComponent extends aem.components.AbstractComponent {
 class MyPage extends aem.components.core.Page {
   construtor() {
     super();
-    this.props["sling:resourceType"] = "my/project/structure/page";
+    this.setResourceType("my/project/structure/page");
   }
 }
 
@@ -91,7 +84,6 @@ let component = new MyComponent();
 page.addComponent(component);
 
 // Build new AEM request
-
 const pageUrl = "http://localhost:4502/content/wknd/us/en/about";
 let req = new aem.request.POST(pageUrl);
 req.credentails("admin","admin").payload(page.getData());
@@ -101,16 +93,8 @@ aem.request.Handler.handle(req.build());
 
 ## Running Examples
 
-> :exclamation: Thes examples depend on having the [AEM WKND tutorial](https://github.com/adobe/aem-guides-wknd) installed.
+> :exclamation: Some examples depend on having specific AEM projects, such as the [AEM WKND tutorial](https://github.com/adobe/aem-guides-wknd) installed. See the README in the root of each example set.
 
-Users can run the [examples](examples/) by navigating to the folder and running `node <file>` (e.g. `node create-page.js`). Default configuration, located in [examples/wknd/config.js](examples/wknd/config.js) is as follows: 
-
-| key | purpose | default setting |
-|---|---|---|
-| host | AEM host address | http://localhost:4502 |
-| page | Path in AEM where data will be created | /content/wknd/us/en/auto-generated |
-| timestamp | Set 'true' to append a time-stamp to component and page urls for repeat runs without cleanup | true |
-| user | username for AEM | admin |
-| pw | password for AEM | admin |
+Users can run the [examples](examples/) by navigating to the folder and running `node <file>` (e.g. `node create-page.js`). 
 
 Note that this is all clear-text, so don't store sensative or real passwords in this configuration; it's only for local testing! 
